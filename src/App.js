@@ -41,7 +41,7 @@ useEffect(() => {
               <tbody>
                 {
                   data.map((e,i) => {
-                    return <Currency key={i} denom={e[0]} buy={e[1]} rate={e[1]} sell={e[1]} />;
+                    return <Currency key={i} denom={e[0]} rate={e[1]} />;
                   }
 
                   )
@@ -51,7 +51,7 @@ useEffect(() => {
         </div>
         <div className='text-3xl text-white text-center mt-4'>
           <h1>Rates are based from 1 USD.</h1>
-          <h1>This application uses API from https://currencyfreaks.com tapi boong.</h1>
+          <h1>This application uses API from https://currencyfreaks.com.</h1>
         </div>
       </div>
     </div>
