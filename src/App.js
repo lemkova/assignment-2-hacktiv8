@@ -2,20 +2,19 @@ import Currency from "./components/currency";
 import React, {useState, useEffect} from 'react';
 
 function App() {
-  const [currencies, setCurrencies] = useState([["IDR", "23000"],["DAUN", "14000"]]);
+
+  const [data, setData] = useState([]);
   
 
 useEffect(() => {
     fetch("https://api.currencyfreaks.com/latest?apikey=f0a5d88f62fc42f89a39414aaf75510c&symbols=GBP,CAD,JPY,IDR,CHF,AUD,SGD")
     .then(res => res.json())
     .then((result) => {
+      const arrays = [];
       for(const [k, e] of Object.entries(result.rates)){
-        const arrayx = currencies;
-        arrayx.push([k, String(parseFloat(Number(e).toFixed(4)))]);
-        setCurrencies(arrayx);
-        console.log(arrayx);
-        //console.log(typeof(k),typeof(e));
+        arrays.push([k, String(parseFloat(Number(e).toFixed(4)))]);
       }
+      setData(arrays);
     })
   }, [])
   return (
@@ -41,18 +40,12 @@ useEffect(() => {
               </thead>
               <tbody>
                 {
-                  currencies.map((e,i) => {
+                  data.map((e,i) => {
                     return <Currency key={i} denom={e[0]} buy={e[1]} rate={e[1]} sell={e[1]} />;
                   }
 
                   )
                 }
-{/*                 <Currency denom="CAD" buy="1.3" rate="1.25" sell="1.19"/>
-                <Currency denom="IDR" buy="15076" rate="14358" sell="13674"/>
-                <Currency denom="CHF" buy="0.96" rate="0.91" sell="0.87"/>
-                <Currency denom="JPY" buy="120" rate="114" sell="109"/>
-                <Currency denom="GBP" buy="0.77" rate="0.735" sell="0.7005"/>
-                <Currency denom="EUR" buy="0.927" rate="0.88" sell="0.84"/> */}
               </tbody>
           </table>
         </div>
